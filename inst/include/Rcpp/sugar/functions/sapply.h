@@ -21,7 +21,7 @@
 #ifndef Rcpp__sugar__sapply_h
 #define Rcpp__sugar__sapply_h
 
-#if defined(RCPP_USING_CXX0X_OR_LATER)
+#if __has_include(<type_traits>)
 	#include <type_traits> // ::std::result_of
 #endif
 
@@ -31,7 +31,7 @@ namespace sugar{
 template <typename Function, typename SugarExpression>
 struct sapply_application_result_of
 {
-#if defined(RCPP_USING_CXX0X_OR_LATER)
+#if __cplusplus >= 201103L
     #if __cplusplus < 201703L
         // deprecated by C++17, removed by C++2020, see https://en.cppreference.com/w/cpp/types/result_of
  	    typedef typename ::std::result_of<Function(typename SugarExpression::stored_type)>::type type;
